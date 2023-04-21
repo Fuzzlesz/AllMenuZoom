@@ -1,0 +1,6 @@
+[submodule "external/CommonLibSSE"]
+	path = external/CommonLibSSE
+	url = https://github.com/powerof3/CommonLibSSE
+[submodule "external/CLibUtil"]
+	path = external/CLibUtil
+	url = https://github.com/powerof3/CLibUtil
