@@ -1,7 +1,3 @@
-Reworks SkyUI's Smithing and default crafting menu to add an extensible category
-system.
-
-Port of original mod by Parapets to Skyrim version 1.5.97.
 
 ## Requirements
 * [CMake](https://cmake.org/)
@@ -18,8 +14,8 @@ Port of original mod by Parapets to Skyrim version 1.5.97.
 
 ## Building
 ```
-git clone https://github.com/Fuzzlesz/CraftingCategories-SE
-cd CraftingCategories-SE
+git clone https://github.com/Fuzzlesz/AllMenuZoom
+cd AllMenuZoom
 git submodule init
 git submodule update
 cmake --preset vs2022-windows

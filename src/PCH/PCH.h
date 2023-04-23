@@ -6,8 +6,18 @@
 
 #include <ranges>
 
-#include "RE/Skyrim.h"
-#include "SKSE/SKSE.h"
+#include <RE/Skyrim.h>
+#include <SKSE/SKSE.h>
+
+#ifdef NDEBUG
+#include <spdlog/sinks/basic_file_sink.h>
+#else
+#include <spdlog/sinks/msvc_sink.h>
+#endif
+
+using namespace std::literals;
+
+namespace logger = SKSE::log;
 
 #include <ClibUtil/distribution.hpp>
 #include <ClibUtil/numeric.hpp>
@@ -52,18 +62,48 @@ namespace stl
 		T::func = vtbl.write_vfunc(T::size, T::thunk);
 	}
 }
+namespace util
+{
+	using SKSE::stl::report_and_fail;
+	using SKSE::stl::to_underlying;
+	using SKSE::stl::utf8_to_utf16;
+
+	struct comp_str_cis
+	{
+		bool operator()(const std::string& a_lhs, const std::string& a_rhs) const
+		{
+			return ::_stricmp(a_lhs.c_str(), a_rhs.c_str()) < 0;
+		}
+	};
+
+	template <typename T>
+	using istring_map = std::map<std::string, T, comp_str_cis>;
+
+	template <typename Map, typename Result>
+	inline bool try_get(
+		Map const& a_map,
+		typename Map::key_type const& a_key,
+		typename Result& a_result)
+	{
+		if (const auto it = a_map.find(a_key); it != a_map.end()) {
+			a_result = static_cast<Result>(it->second);
+			return true;
+		}
+
+		return false;
+	}	
+}
 
 #ifdef SKYRIM_AE
-#	define OFFSET(se, ae) ae
-#	define OFFSET_3(se, ae, vr) ae
+#define OFFSET(se, ae) ae
+#define OFFSET_3(se, ae, vr) ae
 #elif SKYRIMVR
-#	define OFFSET(se, ae) se
-#	define OFFSET_3(se, ae, vr) vr
+#define OFFSET(se, ae) se
+#define OFFSET_3(se, ae, vr) vr
 #else
-#	define OFFSET(se, ae) se
-#	define OFFSET_3(se, ae, vr) se
+#define OFFSET(se, ae) se
+#define OFFSET_3(se, ae, vr) se
 #endif
 
+#include "Plugin.h"
 #include "Common.h"
-#include "RE.h"
-#include "Version.h"

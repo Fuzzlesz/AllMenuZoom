@@ -1,12 +1,17 @@
 {
-  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
-  "name": "craftingcategories",
-  "version": "1",
+  "name": "fz-allmenuzoom",
+  "version-string": "1.0.0",
+  "description": "All Menu Zoom",
+  "homepage": "",
+  "license": "MIT",
   "dependencies": [
     "boost-stl-interfaces",
+    "clib-util",
+    "mergemapper",
     "rsm-binary-io",
     "spdlog",
-    "jsoncpp",
-    "tsl-ordered-map"
+    "srell",
+    "unordered-dense",
+    "xbyak"
   ]
 }

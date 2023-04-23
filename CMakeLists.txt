@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.24)
 
 project(
-	CraftingCategories
-	VERSION 1.0.1
+	AllMenuZoom
+	VERSION 1.0.0
 	LANGUAGES CXX
 )
 
@@ -14,6 +14,14 @@ list(APPEND CMAKE_MODULE_PATH
 )
 include(SKSEPlugin)
 
+set(SKSE_USE_XBYAK ON)
+
+find_package(unordered_dense CONFIG REQUIRED)
+
+find_path(CLIB_UTIL_INCLUDE_DIRS "ClibUtil/utils.hpp")
+find_path(MERGEMAPPER_INCLUDE_DIRS "MergeMapperPluginAPI.h")
+find_path(SRELL_INCLUDE_DIRS "srell.hpp")
+
 SKSEPlugin_Add(
 	${PROJECT_NAME}
 	SOURCE_DIR src
@@ -22,16 +30,36 @@ SKSEPlugin_Add(
 		.editorconfig
 		README.md
 		vcpkg.json
+	${MERGEMAPPER_INCLUDE_DIRS}/MergeMapperPluginAPI.cpp
 	PRECOMPILE_HEADERS
 		src/PCH/PCH.h
 )
 
-find_package(jsoncpp CONFIG REQUIRED)
-find_package(tsl-ordered-map CONFIG REQUIRED)
+target_compile_features(
+	${PROJECT_NAME}
+	PRIVATE
+		cxx_std_23
+)
+
+target_compile_definitions(
+	${PROJECT_NAME}
+	PRIVATE
+		_UNICODE
+)
+
+target_include_directories(
+	${PROJECT_NAME}
+	PRIVATE
+		${CMAKE_CURRENT_BINARY_DIR}/include
+		${CMAKE_CURRENT_SOURCE_DIR}/src
+		${CLIB_UTIL_INCLUDE_DIRS}
+		${MERGEMAPPER_INCLUDE_DIRS}
+		${SRELL_INCLUDE_DIRS}
+)
 
 target_link_libraries(
 	${PROJECT_NAME}
 	PRIVATE
-		jsoncpp_static
-		tsl::ordered_map
+        CommonLibSSE::CommonLibSSE
+		unordered_dense::unordered_dense
 )
