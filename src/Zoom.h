@@ -1,12 +1,8 @@
 #pragma once
 
-namespace Model
-{
-	struct Data;
-}
-
-class ModelManager : public ISingleton<ModelManager>
+class ZoomManager : public ISingleton<ZoomManager>
 {
 public:
-	void ProcessButtonDown(RE::INPUT_DEVICE a_device, std::uint32_t a_key);
+	void ProcessButtonDown(RE::INPUT_DEVICE a_device, std::uint32_t a_key, bool a_altKeyHeld);
+
 };

@@ -1,14 +1,20 @@
 #include "Settings.h"
-#include "Zoom.h"
 
-void Settings::LoadSettings()
+	void	Settings::LoadSettings()
 {
-	constexpr auto path = L"Data/SKSE/Plugins/fz_allmenuzoom.ini";
+	constexpr auto path = L"Data/SKSE/Plugins/fz_zoom.ini";
 
 	CSimpleIniA ini;
 	ini.SetUnicode();
 
 	ini.LoadFile(path);
+
+	ini::get_value(
+		ini,
+		editor.altActionKey,
+		"TransformEditorKeyBinds",
+		"AltActionKey",
+		";Default key : LeftShift");
 
 	editor.assign_keybind(
 		ini,

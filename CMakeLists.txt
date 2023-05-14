@@ -14,7 +14,7 @@ list(APPEND CMAKE_MODULE_PATH
 )
 include(SKSEPlugin)
 
-set(SKSE_USE_XBYAK ON)
+set(SKSE_USE_XBYAK OFF)
 
 find_package(unordered_dense CONFIG REQUIRED)
 

@@ -12,7 +12,6 @@ public:
 	void LoadSettings();
 
 	// members
-
 	struct
 	{
 		void assign_keybind(
@@ -30,6 +29,8 @@ public:
 
 			keyBinds.assign(a_keyBind, value);
 		}
+
+		std::uint32_t altActionKey{ RE::BSKeyboardDevice::Key::kLeftShift };
 
 		BiMap<KEY_BIND, std::uint32_t> keyBinds{
 			{ KEY_BIND::kScaleUp, RE::BSWin32MouseDevice::Key::kWheelUp + 256 },

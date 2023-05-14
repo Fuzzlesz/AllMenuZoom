@@ -1,9 +1,10 @@
 #include "Zoom.h"
 #include "Settings.h"
 
-void ModelManager::ProcessButtonDown(RE::INPUT_DEVICE a_device, std::uint32_t a_key)
+void ZoomManager::ProcessButtonDown(RE::INPUT_DEVICE a_device, std::uint32_t a_key, bool a_altKeyHeld)
 {
 	static auto settings = Settings::GetSingleton();
+	static auto zoom = RE::UserEvents::GetSingleton();
 
 	switch (a_device) {
 	case RE::INPUT_DEVICE::kMouse:
@@ -19,6 +20,7 @@ void ModelManager::ProcessButtonDown(RE::INPUT_DEVICE a_device, std::uint32_t a_
 	if (const auto key_bind = settings->editor.keyBinds.key(a_key)) {
 		switch (*key_bind) {
 		case Settings::KEY_BIND::kScaleUp:
+			zoom->itemZoom;
 			break;
 		default:
 			break;

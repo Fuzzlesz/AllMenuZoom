@@ -28,7 +28,6 @@ namespace logger = SKSE::log;
 #include <ankerl/unordered_dense.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <srell.hpp>
-#include <xbyak/xbyak.h>
 
 #define DLLEXPORT __declspec(dllexport)
 
@@ -53,13 +52,6 @@ namespace stl
 		auto& trampoline = SKSE::GetTrampoline();
 		SKSE::AllocTrampoline(14);
 		T::func = trampoline.write_call<5>(a_src, T::thunk);
-	}
-
-	template <class F, class T>
-	void write_vfunc()
-	{
-		REL::Relocation<std::uintptr_t> vtbl{ F::VTABLE[T::index] };
-		T::func = vtbl.write_vfunc(T::size, T::thunk);
 	}
 }
 namespace util

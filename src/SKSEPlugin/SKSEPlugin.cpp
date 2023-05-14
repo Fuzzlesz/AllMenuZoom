@@ -1,4 +1,5 @@
 #include "Settings.h"
+#include "Hooks/Hooks.h"
 
 namespace
 {
@@ -81,6 +82,8 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 	logger::info("{} v{}"sv, Plugin::NAME, Plugin::VERSION.string());
 
 	SKSE::Init(a_skse);
+
+	Hooks::Install();
 
 	SKSE::GetMessagingInterface()->RegisterListener(
 		[](auto msg)
